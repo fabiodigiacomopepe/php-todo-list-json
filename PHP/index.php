@@ -3,20 +3,6 @@
     header("Access-Control-Allow-Headers: X-Requested-With");
     header('Content-Type: application/json');
 
-    $toDoList = [
-        [
-            'name' => 'compra pane',
-            'done' => true
-        ],
-        [
-            'name' => 'compra latte',
-            'done' => false
-        ],
-    ];
-
-    echo json_encode($toDoList);
-
-    /* $data = $_POST;
-    $encData = json_encode($data);
-    echo $encData; */
+    $toDoListStr = file_get_contents("data.json");
+    echo ($toDoListStr);
 ?>

@@ -12,7 +12,7 @@ export default {
     return {
       store,
       tasks: [],
-      nuovaTask: {
+      newTask: {
         name: "",
         done: false
       }
@@ -20,9 +20,8 @@ export default {
   },
   methods: {
     invia() {
-
-      const url = "http://localhost/22-06%20-%20PHP%20ToDo%20List%20JSON/php-todo-list-json/PHP/";
-      const data = this.nuovaTask;
+      const url = "http://localhost/22-06%20-%20PHP%20ToDo%20List%20JSON/php-todo-list-json/PHP/postTask.php";
+      const data = this.newTask;
 
       const headers = {
         headers: { 'Content-Type': 'multipart/form-data' }
@@ -32,14 +31,15 @@ export default {
         .post(url, data, headers)
         .then(
           risultato => {
-            console.log(risultato.data);
+            this.tasks = risultato.data;
+            this.newTask.name = "";
           }
         )
     }
   },
   mounted() {
     axios
-      .get("http://localhost/22-06%20-%20PHP%20ToDo%20List%20JSON/php-todo-list-json/PHP/")
+      .get("http://localhost/22-06%20-%20PHP%20ToDo%20List%20JSON/php-todo-list-json/PHP/index.php")
       .then(
         risultato => {
           this.tasks = risultato.data;
@@ -52,7 +52,7 @@ export default {
 <template>
   <form @submit.prevent=invia()>
     <label for="task">Inserisci task </label>
-    <input type="text" name="newTask" id="newTask" v-model="nuovaTask.name">
+    <input type="text" name="newTask" id="newTask" v-model="newTask.name">
     <input type="submit" value="INVIA">
   </form>
 
