@@ -35,7 +35,17 @@ export default {
             this.newTask.name = "";
           }
         )
-    }
+    },
+    cambiaStato(task) {
+      if (task.done == 'true') {
+        task.done = 'false';
+      } else {
+        task.done = 'true';
+      }
+    },
+    rimuoviItem(indice) {
+      this.tasks.splice(indice, 1);
+    },
   },
   mounted() {
     axios
@@ -57,8 +67,10 @@ export default {
   </form>
 
   <ul>
-    <li v-for="(task, index) in tasks" :key="index">
+    <li v-for="(task, index) in tasks" :key="index" :class="((task.done === 'true') ? 'barrato' : '')"
+      @click.stop="cambiaStato(task)">
       {{ task.name }}
+      <i @click.stop="rimuoviItem(index)" class="fa-solid fa-xmark"></i>
     </li>
   </ul>
 </template>
@@ -74,5 +86,21 @@ body {
 
 ul {
   margin: 30px 0 0 15px;
+}
+
+.barrato {
+  text-decoration: line-through;
+}
+
+li {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+i {
+  margin-left: 30px;
+  background-color: red;
+  color: white;
+  padding: 2px 5px;
 }
 </style>
