@@ -36,12 +36,21 @@ export default {
           }
         )
     },
-    cambiaStato(task) {
-      if (task.done == 'true') {
-        task.done = 'false';
-      } else {
-        task.done = 'true';
-      }
+    cambiaStato(indice) {
+      const url = "http://localhost/22-06%20-%20PHP%20ToDo%20List%20JSON/php-todo-list-json/PHP/changeTask.php";
+      const data = { "indice": indice };
+      const headers = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      };
+
+      axios
+        .post(url, data, headers)
+        .then(
+          risultato => {
+            const data = risultato.data;
+            this.tasks = data;
+          }
+        )
     },
     rimuoviItem(indice) {
       const url = "http://localhost/22-06%20-%20PHP%20ToDo%20List%20JSON/php-todo-list-json/PHP/deleteTask.php";
@@ -77,7 +86,7 @@ export default {
     <h1>Todo List</h1>
     <div class="list">
       <ul>
-        <li v-for="(task, index) in tasks" :key="index" @click.stop="cambiaStato(task)">
+        <li v-for="(task, index) in tasks" :key="index" @click.stop="cambiaStato(index)">
           <span :class="((task.done === 'true') ? 'barrato' : '')">
             {{ task.name }}
           </span>
