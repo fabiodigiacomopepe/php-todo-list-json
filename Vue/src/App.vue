@@ -96,7 +96,7 @@ export default {
     </div>
 
     <form @submit.prevent=invia()>
-      <input type="text" name="newTask" id="newTask" v-model="newTask.name" placeholder="Inserisci elemento...">
+      <input type="text" name="newTask" id="newTask" v-model.trim="newTask.name" placeholder="Inserisci elemento...">
       <input type="submit" id="submit" value="Inserisci">
     </form>
   </div>

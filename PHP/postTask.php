@@ -4,13 +4,20 @@
     header('Content-Type: application/json');
 
     $newTask = $_POST;
-    $dataStr = file_get_contents("data.json");
-    $data = json_decode($dataStr);
-    $data[] = $newTask;
+    $newTaskName = $newTask['name'];
+    
+    if ($newTaskName !== "") {
+        $dataStr = file_get_contents("data.json");
+        $data = json_decode($dataStr);
 
-    $encData = json_encode($data);
+        $data[] = $newTask;
 
-    file_put_contents("data.json", $encData);
+        $encData = json_encode($data);
+        file_put_contents("data.json", $encData);
+        echo $encData;
+    } else {
+        $toDoListStr = file_get_contents("data.json");
+        echo ($toDoListStr);
+    }
 
-    echo $encData;
 ?>
