@@ -44,7 +44,20 @@ export default {
       }
     },
     rimuoviItem(indice) {
-      this.tasks.splice(indice, 1);
+      const url = "http://localhost/22-06%20-%20PHP%20ToDo%20List%20JSON/php-todo-list-json/PHP/deleteTask.php";
+      const data = { "indice": indice };
+      const headers = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      };
+
+      axios
+        .post(url, data, headers)
+        .then(
+          risultato => {
+            const data = risultato.data;
+            this.tasks = data;
+          }
+        )
     },
   },
   mounted() {
